@@ -14,7 +14,21 @@ function addErrorMessage(id, msg) {
     var newId = id + 'Error';
     //example: firstNameError
 
-
+    var span =U.$(newId);
+    if (span){
+        span.firstChild.value=msg;
+    }
+    else {
+        //"else" means span does NOT allready exist, so add it
+    span=document.createElement("span");
+    span.id=newId;
+    span.className="error";
+    span.appendChild(
+        document.createTextNode(mag)
+    );
+        elem.parentNode.appendChild(span);
+        
+    }
 } // End of addErrorMessage() function.
 
 // This function removes the error message.

@@ -21,7 +21,6 @@ function validateForm(e) {
     var state;
     var zip;
     var terms; //We'll add these later....
-
     //Flag variable
     var error = false;
 
