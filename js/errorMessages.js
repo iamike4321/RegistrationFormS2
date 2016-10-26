@@ -14,20 +14,26 @@ function addErrorMessage(id, msg) {
     var newId = id + 'Error';
     //example: firstNameError
 
-    var span =U.$(newId);
-    if (span){
-        span.firstChild.value=msg;
+    //Get the error element (ie. span) IF it exists
+    var span = U.$(newId);
+    if (span) {
+        //User provided bad info last time,
+        //so span already exists
+        //Just update it
+        span.firstChild.value = msg;
     }
     else {
-        //"else" means span does NOT allready exist, so add it
-    span=document.createElement("span");
-    span.id=newId;
-    span.className="error";
-    span.appendChild(
-        document.createTextNode(mag)
-    );
-        elem.parentNode.appendChild(span);
+        //Span does NOT already exist, so add it
+        span = document.createElement("span");
+        span.id = newId;
+        span.className = "error";
+        span.appendChild (
+            document.createTextNode(msg)
+        );
 
+        //Place the span AFTER the input
+        elem.parentNode.appendChild(span);
+        elem.previousSibling.className = "error";
     }
 } // End of addErrorMessage() function.
 
@@ -35,10 +41,16 @@ function addErrorMessage(id, msg) {
 // It takes one argument: the form element ID.
 function removeErrorMessage(id) {
     'use strict';
-    var span =u.$(id+"Error");
-    if (span){
-        span.previousSibling.previousSibling.className=null;
-        span.parentNode.removeChild(span);
 
+    var span = U.$(id + "Error");
+    if (span) {
+        //Only when the span already exists
+
+        //Remove class definition from label
+        span.previousSibling.previousSibling
+            .className = null;
+
+        //Get rid of the span completely
+        span.parentNode.removeChild(span);
     }
 } // End of removeErrorMessage() function.
