@@ -27,7 +27,7 @@ function addErrorMessage(id, msg) {
         document.createTextNode(mag)
     );
         elem.parentNode.appendChild(span);
-        
+
     }
 } // End of addErrorMessage() function.
 
@@ -35,5 +35,10 @@ function addErrorMessage(id, msg) {
 // It takes one argument: the form element ID.
 function removeErrorMessage(id) {
     'use strict';
+    var span =u.$(id+"Error");
+    if (span){
+        span.previousSibling.previousSibling.className=null;
+        span.parentNode.removeChild(span);
 
+    }
 } // End of removeErrorMessage() function.
