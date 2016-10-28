@@ -1,31 +1,59 @@
 // Script 10.7- register.js
 // This script validates a form.
 
-// Function called when the form is submitted.
-// Function validates the form data.
 function validateUsername(username) {
-    //Returns turue if the given username
-    //matches the folowing criteria
-    //1. is 8 or more charters long
-    //2. first charter is A-Z or a-z
-    //3.contains at least one numaral
-    //returns false otherwise
+    //Returns true if the given username
+    //matches the following criteria:
+    //1. Is 8 or more characters long
+    //2. First character is A-Z or a-z
+    //3. Contains at least one numeral
+    //Returns false otherwise
 
     var char1;
     var hasNumber;
-    if (username.length<8) return false;
-    //check the first dig
-    char1=username.substr(0,1).toUpperCase();
-    if (!(char1>="A"&&char1<="Z")){return false;}
-//check to see if there is atleaast one didget
-    hasNumber=/\d/;
-    if (!(hasNumber.test(username))){return false;}
-    //all critera has been met
+
+    //Check username length:
+    if (username.length < 8) {
+        return false;
+    }
+
+    //Check the first digit
+    char1 = username.substr(0, 1).toUpperCase();
+    if (!(char1 >= "A" && char1 <= "Z")) {
+        return false;
+    }
+
+    //Check if there is at least one digit
+    hasNumber = /\d/;
+    if (!(hasNumber.test(username))) {
+        return false;
+    }
+
+    //Alternate method:
+    /*var anyDigits;
+     for (var i = 1; i < username.length; i++)
+     {
+     char1 = username.substr(i, 1);
+     if (char1 >= "0" && char1 <= "9")
+     {
+     anyDigits = true;
+     break;  //found a digit, exit loop
+     } //end if
+     } //end for
+     if (!(anyDigits)) {
+     return false;
+     }*/
+
+    //All criteria has been met:
     return true;
-
-
-
 }
+
+
+
+
+// Function called when the form is submitted.
+// Function validates the form data.
+
 function validateForm(e) {
     'use strict';
 
@@ -35,19 +63,21 @@ function validateForm(e) {
     }
 
     //Get form object references
-    var firstName = U.$("firstName");
-    var lastName;
-    var email;
-    var phone;
-    var city;
-    var state;
-    var zip;
-    var terms; //We'll add these later....
+    var firstName = U.$('firstName');
+    var lastName = U.$('lastName');
+    var userName = U.$('userName');
+    var email = U.$('email');
+    var phone = U.$('phone');
+    var city = U.$('city');
+    var state = U.$('state');
+    var zip = U.$('zip')
+    var terms = U.$('terms');
+
 
     //Flag variable
     var error = false;
 
-    //Validate the first name:
+    //Validate the first name using a regular expression
     if (/^[A-Z \.\-']{2,20}$/i.test(firstName.value)) {
         //Everything between / and / is the expression
         //Allows any letter A-Z (case insensitive)
@@ -66,13 +96,24 @@ function validateForm(e) {
         error = true;
     }
 
+    //Validate the last name using a regular expression
 
+    //Validate the username using a validation function
+    if (validateUsername(userName.value)) {
+        removeErrorMessage('userName');
+    }
+    else {
+        addErrorMessage(
+            'userName',
+            'username does not meet criteria'
+        );
+        error = true;
+    }
 
-
-
-
-
-
+    //Validate the email using a regular expression
+    //Validate the phone using a regular expression
+    //Validate the city using a regular expression
+    //Validate the zip using a regular expression
 
     //Prevent form from resubmitting
     if (error) {
