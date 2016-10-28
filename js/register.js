@@ -3,7 +3,29 @@
 
 // Function called when the form is submitted.
 // Function validates the form data.
+function validateUsername(username) {
+    //Returns turue if the given username
+    //matches the folowing criteria
+    //1. is 8 or more charters long
+    //2. first charter is A-Z or a-z
+    //3.contains at least one numaral
+    //returns false otherwise
 
+    var char1;
+    var hasNumber;
+    if (username.length<8) return false;
+    //check the first dig
+    char1=username.substr(0,1).toUpperCase();
+    if (!(char1>="A"&&char1<="Z")){return false;}
+//check to see if there is atleaast one didget
+    hasNumber=/\d/;
+    if (!(hasNumber.test(username))){return false;}
+    //all critera has been met
+    return true;
+
+
+
+}
 function validateForm(e) {
     'use strict';
 
